@@ -5,7 +5,7 @@ const categories = [
   { id: "history", label: "History" },
   { id: "biography", label: "Biography" },
   { id: "children", label: "Children's" },
-];
+]; 
 
 export const CategoryTabs = ({ activeCategory, onCategoryChange }) => {
   return (

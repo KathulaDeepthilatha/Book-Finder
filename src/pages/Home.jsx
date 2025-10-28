@@ -14,25 +14,26 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [loading, setLoading] = useState(false);
-
-  const fetchBooks = async (query, category, page) => {
+  
+  
+  const fetchBooks = async (query, category, page=1) => {
     try {
       setLoading(true);
       const response = await fetch(
         `https://openlibrary.org/search.json?q=${query}&page=${page}`
       );
       const data = await response.json();
-      setBooks(data.docs || []);
+      setBooks((data.docs || []).slice(0, BOOKS_PER_PAGE)); 
       setTotalResults(data.numFound || 0);
     } catch (error) {
-      console.error("Error fetching books:", error);
+      console.error("Error fetching books:", error); 
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchBooks("popular", activeCategory, 1);
+    fetchBooks("popular", activeCategory);
   }, []);
 
   const handleSearch = () => {
@@ -40,14 +41,14 @@ const Home = () => {
       alert("Please enter a search term.");
       return;
     }
-    setCurrentPage(1);
-    fetchBooks(searchQuery, activeCategory, 1);
+    setCurrentPage();
+    fetchBooks(searchQuery, activeCategory);
   };
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
-    setCurrentPage(1);
-    fetchBooks(searchQuery || "popular", category, 1);
+    setCurrentPage();
+    fetchBooks(searchQuery || "popular", category);
   };
 
   const handlePageChange = (page) => {
@@ -56,11 +57,11 @@ const Home = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const totalPages = Math.ceil(totalResults / BOOKS_PER_PAGE);
+  const totalPages = Math.ceil(totalResults / BOOKS_PER_PAGE); 
+  console.log(totalPages);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      {/* Header */}
+    <div className="h-100 bg-gradient-to-b from-gray-50 to-gray-100">
       <header className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-12 px-4 shadow-lg">
         <div className="container mx-auto">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -68,7 +69,7 @@ const Home = () => {
             <h1 className="text-4xl font-bold">BookFinder</h1>
           </div>
           <p className="text-center text-blue-100 text-lg">
-            Discover your next great read from millions of books
+            Every search opens a new page of imagination
           </p>
         </div>
       </header>
@@ -141,7 +142,7 @@ const Home = () => {
 
       <footer className="bg-white border-t mt-16 py-6">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <p>Powered by Open Library API • Made for students</p>
+          <p>Powered by Open Library API</p>
         </div>
       </footer>
     </div>

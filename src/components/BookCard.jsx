@@ -12,7 +12,7 @@ export const BookCard = ({
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [summaryExpanded, setSummaryExpanded] = useState(false);
+
 
   const hasSummary = firstSentence && firstSentence.length > 0;
 
@@ -21,7 +21,7 @@ export const BookCard = ({
       <div className="p-4">
         <div className="flex gap-4">
           {/* Book Cover */}
-          <div className="flex-shrink-0 w-24 h-36 rounded-lg overflow-hidden bg-gray-200 dark:bg-muted relative">
+          <div className="flex-shrink-0 w-28 sm:w-32 md:w-40 lg:w-48 h-full  rounded-lg overflow-hidden bg-gray-200 dark:bg-muted relative">
             {!imageError && coverImage ? (
               <>
                 {!imageLoaded && (
@@ -47,17 +47,17 @@ export const BookCard = ({
 
           {/* Book Details */}
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-base line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">
-              {title}
+            <h3 className="font-semibold text-gray-500 line-clamp-2 mb-1 group-hover:text-blue-600 transition-colors">
+              <span className="font-medium text-gray-800">Title:</span> {title}
             </h3>
             <p className="text-sm text-gray-500 mb-3 line-clamp-1">
-              {author && author.length > 0 ? author.join(", ") : "Unknown Author"}
+              <span className="font-medium text-gray-800">Author:</span> {author && author.length > 0 ? author.join(", ") : "Unknown Author"}
             </p>
 
             <div className="space-y-1.5 text-xs text-gray-500">
               {publishYear && (
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-800">Year:</span>
+                  <span className="font-medium text-gray-800">Published Year:</span>
                   <span>{publishYear}</span>
                 </div>
               )}
@@ -74,33 +74,6 @@ export const BookCard = ({
                 </div>
               )}
             </div>
-
-            {/* Summary Section */}
-            {hasSummary && (
-              <div className="mt-3">
-                <button
-                  onClick={() => setSummaryExpanded(!summaryExpanded)}
-                  className="flex items-center text-xs font-medium text-blue-600 hover:bg-blue-50 px-2 py-1 rounded-md transition"
-                >
-                  {summaryExpanded ? (
-                    <>
-                      <ChevronUp className="h-3 w-3 mr-1" />
-                      Hide Summary
-                    </>
-                  ) : (
-                    <>
-                      <ChevronDown className="h-3 w-3 mr-1" />
-                      Show Summary
-                    </>
-                  )}
-                </button>
-                {summaryExpanded && (
-                  <p className="mt-2 text-sm text-gray-800 leading-relaxed animate-slide-in">
-                    {firstSentence[0]}
-                  </p>
-                )}
-              </div>
-            )}
           </div>
         </div>
       </div>
