@@ -16,14 +16,15 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   
   
-  const fetchBooks = async (query, category, page=1) => {
+  const fetchBooks = async (query, category, page = 1) => {
     try {
+      if (!query.trim()) return;
       setLoading(true);
       const response = await fetch(
-        `https://openlibrary.org/search.json?q=${query}&page=${page}`
+        `https://openlibrary.org/search.json?q=${query}&limit=12&page=${page}`
       );
       const data = await response.json();
-      setBooks((data.docs || []).slice(0, BOOKS_PER_PAGE)); 
+      setBooks(data.docs || []); 
       setTotalResults(data.numFound || 0);
     } catch (error) {
       console.error("Error fetching books:", error); 
@@ -41,13 +42,13 @@ const Home = () => {
       alert("Please enter a search term.");
       return;
     }
-    setCurrentPage();
+    setCurrentPage(1);
     fetchBooks(searchQuery, activeCategory);
   };
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
-    setCurrentPage();
+    setCurrentPage(1); 
     fetchBooks(searchQuery || "popular", category);
   };
 
@@ -117,8 +118,7 @@ const Home = () => {
                   publishYear={book.first_publish_year}
                   language={book.language}
                   editionCount={book.edition_count}
-                  firstSentence={book.first_sentence}
-                  isbn={book.isbn}
+                  ebook_access={book.ebook_access}
                 />
               ))}
             </div>

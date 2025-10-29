@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const BookCard = ({
   title,
@@ -8,12 +7,10 @@ export const BookCard = ({
   publishYear,
   language,
   editionCount,
-  firstSentence,
+  ebook_access,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-
-  const hasSummary = firstSentence && firstSentence.length > 0;
 
   return (
     <div className="bg-white dark:bg-card rounded-xl overflow-hidden shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 group">
@@ -65,15 +62,21 @@ export const BookCard = ({
                 </div>
               )}
               {language && language.length > 0 && (
-                <div className="flex items-center gap-2">
-                  <span className=" text-gray-800 text-sm font-semibold">Language:</span>
-                  <span className="capitalize">{language[0]}</span>
+                <div className="flex items-baseline gap-2">
+                  <span className=" text-gray-800 text-sm font-semibold whitespace-nowrap">Language:</span>
+                  <span className="capitalize">{language.join(", ")}</span>
                 </div>
               )}
               {editionCount !== undefined && (
                 <div className="flex items-center gap-2">
                   <span className="text-gray-800 text-sm font-semibold">Editions:</span>
                   <span>{editionCount}</span>
+                </div>
+              )}
+              {ebook_access && (
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-800 text-sm font-semibold">Ebook Access:</span>
+                  <span>{ebook_access}</span>
                 </div>
               )}
             </div>
