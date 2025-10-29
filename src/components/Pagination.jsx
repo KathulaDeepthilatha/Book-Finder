@@ -28,26 +28,26 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-8">
+    <div className="flex items-center justify-center gap-2 mt-6 sm:mt-8 flex-wrap">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="h-10 w-10 border rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-50"
+        className="h-8 w-8 sm:h-10 sm:w-10 border rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-50"
       >
         <ChevronLeft className="h-4 w-4" />
       </button>
 
-      <div className="flex gap-1">
+      <div className="flex gap-1 items-center">
         {getPageNumbers().map((page, index) =>
           page === "..." ? (
-            <span key={index} className="px-3 py-2 text-gray-500">
+            <span key={index} className="px-2 py-1 text-gray-500">
               ...
             </span>
           ) : (
             <button
               key={index}
               onClick={() => onPageChange(page)}
-              className={`h-10 w-10 rounded-lg border flex items-center justify-center ${
+              className={`h-8 w-8 sm:h-10 sm:w-10 rounded-lg border flex items-center justify-center text-sm ${
                 currentPage === page
                   ? "bg-blue-600 text-white"
                   : "hover:bg-gray-100"
@@ -62,7 +62,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="h-10 w-10 border rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-50"
+        className="h-8 w-8 sm:h-10 sm:w-10 border rounded-lg flex items-center justify-center hover:bg-gray-100 disabled:opacity-50"
       >
         <ChevronRight className="h-4 w-4" />
       </button>
