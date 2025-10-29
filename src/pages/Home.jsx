@@ -105,7 +105,6 @@ const Home = () => {
   // initial fetch
   useEffect(() => {
     fetchBooks("popular");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Recompute filteredBooks when allBooks or activeCategory changes
@@ -133,7 +132,7 @@ const Home = () => {
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
-    // no new fetch — filter client-side from allBooks. If you want to re-fetch server-side, call fetchBooks(searchQuery || 'popular')
+    // no new fetch — filter client-side from allBooks. If we want to re-fetch server-side, call fetchBooks(searchQuery || 'popular')
   };
 
   const handlePageChange = (page) => {
@@ -235,7 +234,7 @@ const Home = () => {
 
       <footer className="bg-white border-t mt-16 py-6">
         <div className="container mx-auto px-4 text-center text-sm text-gray-500">
-          <p>Powered by Open Library API</p>
+          <p>Explore more books...</p>
         </div>
       </footer>
     </div>

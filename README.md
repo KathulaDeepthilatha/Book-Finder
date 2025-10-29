@@ -1,16 +1,80 @@
-# React + Vite
+# Book Finder Application 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Overview
+Book Finder is a React-based web application that helps users discover and explore books using the Open Library API. The application provides a clean, responsive interface with features like search, categorization, and pagination.
 
-Currently, two official plugins are available:
+# Key Features
+-Real-time book search
+-Category filtering
+-Responsive design
+-Pagination
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Core Components
+1. Home Component
+Main container component managing:
+State management for books, categories, and pagination
+API integration
+Search and filter logic
+2. SearchBar Component 
+Handles user input for book searches
+Provides instant search functionality
+3. CategoryTabs Component 
+Displays filterable categories
+Categories: All Books, Fiction, Science, History, Biography, Children's
+Manages active category state
+4. BookCard Component 
+Displays individual book information
+Handles image loading states
+Shows book details: title, author, year, language, edition count
+5. Pagination Component 
+Manages page navigation
+Shows current page and total pages
+Handles page change events
 
-## React Compiler
+# Data Flow
+Initial Load
+useEffect(() => {
+    fetchBooks("popular", 1);
+}, []);
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Search Flow
+User enters search term - handleSearch() triggers, fetches books from API and Updates UI with results. 
 
-## Expanding the ESLint configuration
+# Category Filtering
+User selects category handleCategoryChange() executes filters current books by category keywords, Updates displayed results.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Pagination
+User clicks page number handlePageChange() triggers, fetches new page of results scrolls to top of page
+
+# API Integration
+
+const fetchBooks = async (query, page = 1) => {
+  const offset = (page - 1) * BOOKS_PER_PAGE;
+  const url = `https://openlibrary.org/search.json?q=${query}&limit=${BOOKS_PER_PAGE}&offset=${offset}`;
+  // Fetch and process data
+}
+
+# State Management
+Key states:
+
+allBooks: Current page books
+filteredBooks: Category-filtered books
+activeCategory: Current selected category
+searchQuery: Current search term
+currentPage: Active page number
+totalResults: Total available books
+
+# Usage Example
+User opens application
+First popular books display initially
+User can:
+- Search for specific books
+- Filter by category
+- Navigate through pages
+- View book details
+
+# Future Enhancements
+Advanced filtering
+Book details page
+Save favorites
+Reading lists
